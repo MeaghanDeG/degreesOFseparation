@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 // Express app setup, run on Port 3001
 const app = express();
@@ -9,11 +10,15 @@ const port = 3001;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 // Start server
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:3001`);
 });
 
 // Memory storage for friends
